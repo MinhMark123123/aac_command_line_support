@@ -14,7 +14,6 @@ class CreateDataFeatureCommand extends Command {
 
   CreateDataFeatureCommand() {
     argParser..addOption('feature');
-    //argParser.addFlag('feature', abbr: 'n');
   }
 
   final String folderData = "data";
