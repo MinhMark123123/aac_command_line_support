@@ -26,4 +26,5 @@ class ClassTemplateBase {
     var string = await resource.readAsString(encoding: utf8);
     return string;
   }
+
 }

@@ -4,7 +4,6 @@ import 'package:aac_command_line_support/utils/file_utils.dart';
 import 'package:aac_command_line_support/utils/get_args.dart';
 import 'package:args/command_runner.dart';
 
-
 class CreateDataFeatureCommand extends Command {
   @override
   String get name => "data_layer";
@@ -22,7 +21,7 @@ class CreateDataFeatureCommand extends Command {
   final String repositories = "repository";
 
   @override
-  Future<void> run() async{
+  Future<void> run() async {
     String feature = getArg<String>("feature", argResults, isMandatory: true);
     DataLayerAACSupport aacSupport = DataLayerAACSupportRiverPodRetrofit();
     List<String> listPath = [
@@ -33,17 +32,17 @@ class CreateDataFeatureCommand extends Command {
     ];
     final mapFileAndContent = Map<String, String?>();
     final contentEntity =
-    await aacSupport.getSampleDataClassEntity(featureName: feature);
+        await aacSupport.getSampleDataClassEntity(featureName: feature);
     final contentInjector =
-    await aacSupport.getSampleInjector(featureName: feature);
+        await aacSupport.getSampleInjector(featureName: feature);
     final contentLocalSource =
-    await aacSupport.getSampleDataClassLocalSource(featureName: feature);
+        await aacSupport.getSampleDataClassLocalSource(featureName: feature);
     final contentRemoteSource =
-    await aacSupport.getSampleDataClassRemoteSource(featureName: feature);
+        await aacSupport.getSampleDataClassRemoteSource(featureName: feature);
     final contentRepository =
-    await aacSupport.getSampleDataClassRepository(featureName: feature);
+        await aacSupport.getSampleDataClassRepository(featureName: feature);
     final contentRetrofit =
-    await aacSupport.getSampleDataClassRetrofit(featureName: feature);
+        await aacSupport.getSampleDataClassRetrofit(featureName: feature);
     listPath.forEach((element) {
       if (element.contains("_entity")) {
         mapFileAndContent[element] = contentEntity;
