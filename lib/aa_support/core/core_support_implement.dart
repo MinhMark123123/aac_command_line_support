@@ -14,7 +14,8 @@ class CoreSupportImplement extends CoreAACSupport {
   @override
   List<String> genListDomainPath() {
     final corePath = genCorePath();
-    return ["${corePath}${Platform.pathSeparator}$folderDomain"];
+    final corePathDomain = "${corePath}${Platform.pathSeparator}$folderDomain";
+    return ["$corePathDomain${Platform.pathSeparator}base_use_case.dart"];
   }
 
   @override

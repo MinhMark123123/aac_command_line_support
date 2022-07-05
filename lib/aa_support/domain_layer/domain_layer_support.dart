@@ -20,19 +20,13 @@ abstract class DomainLayerAACSupport extends ClassTemplateBase {
     required String featureName,
   });
 
-  Future<String> getSampleUseCaseFuture({
-    required String featureName,
-  });
-
   Future<String> getSampleUseCaseStream({
-    required String featureName,
-  });
-
-  Future<String> getSampleInjector({
     required String featureName,
   });
 
   Future<void> autoInjectorDomain({
     required String featureName,
   });
+
+  String get pathTemplate;
 }
