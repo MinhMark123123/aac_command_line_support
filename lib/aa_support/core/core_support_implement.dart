@@ -6,22 +6,22 @@ class CoreSupportImplement extends CoreAACSupport {
   String genCorePath() => "$folderCore";
 
   @override
-  List<String> genListDataPath() {
+  String genListDataPath() {
     final corePath = genCorePath();
-    return ["${corePath}${Platform.pathSeparator}$folderData"];
+    return "${corePath}${Platform.pathSeparator}$folderData";
   }
 
   @override
-  List<String> genListDomainPath() {
+  String genListDomainPath() {
     final corePath = genCorePath();
     final corePathDomain = "${corePath}${Platform.pathSeparator}$folderDomain";
-    return ["$corePathDomain${Platform.pathSeparator}base_use_case.dart"];
+    return "$corePathDomain${Platform.pathSeparator}base_use_case.dart";
   }
 
   @override
-  List<String> genListPresentationPath() {
+  String genListPresentationPath() {
     final corePath = genCorePath();
-    return ["${corePath}${Platform.pathSeparator}$folderPresentation"];
+    return "${corePath}${Platform.pathSeparator}$folderPresentation";
   }
 
   @override
@@ -36,7 +36,6 @@ class CoreSupportImplement extends CoreAACSupport {
   }
 
   @override
-  // TODO: implement pathTemplate
   String get pathTemplate =>
       "package:aac_command_line_support/aa_support/core/template";
 }

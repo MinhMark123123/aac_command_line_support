@@ -8,11 +8,11 @@ final String folderPresentation = "presentation";
 abstract class CoreAACSupport extends ClassTemplateBase {
   String genCorePath();
 
-  List<String> genListDataPath();
+  String genListDataPath();
 
-  List<String> genListDomainPath();
+  String genListDomainPath();
 
-  List<String> genListPresentationPath();
+  String genListPresentationPath();
 
   Future<String> getSampleDomainCore();
 
