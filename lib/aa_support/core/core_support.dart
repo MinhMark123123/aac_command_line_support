@@ -15,6 +15,7 @@ abstract class CoreAACSupport extends ClassTemplateBase {
   String genListPresentationPath();
 
   Future<String> getSampleDomainCore();
+  Future<String> getSamplePresentationCore();
 
   String get pathTemplate;
 }

@@ -1,7 +1,7 @@
+import 'package:args/command_runner.dart';
 import 'package:aac_command_line_support/aa_support/domain_layer/domain_layer_support.dart';
 import 'package:aac_command_line_support/aa_support/domain_layer/riverpod/domain_layer_riverpod.dart';
 import 'package:aac_command_line_support/utils/file_utils.dart';
-import 'package:args/command_runner.dart';
 
 import '../utils/get_args.dart';
 
@@ -42,8 +42,9 @@ class AutoInjectDomainUseCaseCommand extends Command {
   String get name => "inject";
 
   AutoInjectDomainUseCaseCommand() {
-    argParser..addOption('feature');
-    argParser..addOption('with');
+    argParser
+      ..addOption('feature')
+      ..addOption('with');
   }
 
   @override

@@ -36,6 +36,17 @@ class CoreSupportImplement extends CoreAACSupport {
   }
 
   @override
+  Future<String> getSamplePresentationCore() async{
+    final templatePath =
+        "$pathTemplate${Platform.pathSeparator}presentation_layer${Platform.pathSeparator}temp_plate_controller.dart";
+    String content = await getStringFromPath(path: templatePath);
+    return formatContent(
+      content: content,
+      featureName: "SOMETHINGNOTTOREPLACE",
+    );
+  }
+
+  @override
   String get pathTemplate =>
       "package:aac_command_line_support/aa_support/core/template";
 }
