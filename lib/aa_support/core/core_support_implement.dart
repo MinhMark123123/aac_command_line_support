@@ -21,7 +21,9 @@ class CoreSupportImplement extends CoreAACSupport {
   @override
   String genListPresentationPath() {
     final corePath = genCorePath();
-    return "${corePath}${Platform.pathSeparator}$folderPresentation";
+    final corePathPresentation =
+        "${corePath}${Platform.pathSeparator}$folderPresentation";
+    return "$corePathPresentation${Platform.pathSeparator}base_presentation.dart";
   }
 
   @override
@@ -36,7 +38,7 @@ class CoreSupportImplement extends CoreAACSupport {
   }
 
   @override
-  Future<String> getSamplePresentationCore() async{
+  Future<String> getSamplePresentationCore() async {
     final templatePath =
         "$pathTemplate${Platform.pathSeparator}presentation_layer${Platform.pathSeparator}temp_plate_controller.dart";
     String content = await getStringFromPath(path: templatePath);
