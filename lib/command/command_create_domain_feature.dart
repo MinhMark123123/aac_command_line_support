@@ -1,3 +1,4 @@
+import 'package:aac_command_line_support/command/command_create.dart';
 import 'package:args/command_runner.dart';
 import 'package:aac_command_line_support/aa_support/domain_layer/domain_layer_support.dart';
 import 'package:aac_command_line_support/aa_support/domain_layer/riverpod/domain_layer_riverpod.dart';
@@ -13,9 +14,31 @@ class CreateDomainFeatureCommand extends Command {
   String get name => "domain_layer";
 
   CreateDomainFeatureCommand() {
-    argParser..addOption('feature');
     addSubcommand(AutoInjectDomainUseCaseCommand());
+    addSubcommand(
+      CreateCommand(
+        [
+          CreateUseCaseCommand(),
+        ],
+      ),
+    );
   }
+
+  @override
+  Future<void> run() async {}
+}
+
+class CreateUseCaseCommand extends Command {
+  CreateUseCaseCommand() {
+    argParser..addOption('feature');
+  }
+
+  @override
+  String get description =>
+      "Create usecase comand with argument --feature=name";
+
+  @override
+  String get name => "usecase";
 
   @override
   Future<void> run() async {
@@ -55,7 +78,14 @@ class AutoInjectDomainUseCaseCommand extends Command {
         getArg<String>("with", argResults, isMandatory: true);
     if (withFrameWork.toLowerCase().contains("riverpod")) {
       DomainLayerAACSupport aacSupport = DomainLayerAACSupportRiverPod();
-      aacSupport.autoInjectorDomain(featureName: featureName);
+      final injectEntry =
+          await aacSupport.autoInjectorDomain(featureName: featureName);
+      await createFile(
+        path: injectEntry.key,
+        content: injectEntry.value,
+        override: true,
+        withTestFile: false,
+      );
     }
   }
 }

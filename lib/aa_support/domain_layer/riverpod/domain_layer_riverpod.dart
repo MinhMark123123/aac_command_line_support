@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:aac_command_line_support/utils/output_utils.dart' as output;
 import 'package:aac_command_line_support/aa_support/domain_layer/domain_layer_support.dart';
+import 'package:aac_command_line_support/utils/file_utils.dart';
 import 'package:aac_command_line_support/utils/string_extension.dart';
 
 class DomainLayerAACSupportRiverPod extends DomainLayerAACSupport {
@@ -42,13 +44,21 @@ class DomainLayerAACSupportRiverPod extends DomainLayerAACSupport {
   }
 
   @override
-  Future<String> autoInjectorDomain({required String featureName}) async {
+  Future<MapEntry<String, String>> autoInjectorDomain(
+      {required String featureName}) async {
     final pathInjector = genInjectorPathFromFeature(featureName: featureName);
     final pathUseCaseFolder =
-        "${genDomainLayerPathFromFeature(featureName: featureName)}${Platform.pathSeparator}";
-    final useCaseDir = Directory(pathUseCaseFolder);
+        "${genDomainLayerPathFromFeature(featureName: featureName)}${Platform.pathSeparator}use_cases";
+    final useCaseDir =
+        Directory("lib${Platform.pathSeparator}$pathUseCaseFolder");
     final listUseCaseFiles = await useCaseDir.list().toList();
-    var injectorContent = await getStringFromPath(path: pathInjector.first);
+    var injectorContent = "";
+    try {
+      injectorContent =
+          await getStringFromPath(path: libPath(pathInjector.first));
+    } catch (e) {
+      print(e);
+    }
     listUseCaseFiles.where((element) => element.path.contains(".dart")).forEach(
       (element) async {
         final injectedContent = await _injectElement(
@@ -62,7 +72,7 @@ class DomainLayerAACSupportRiverPod extends DomainLayerAACSupport {
         }
       },
     );
-    return injectorContent;
+    return MapEntry(pathInjector.first, injectorContent);
   }
 
   @override
@@ -95,6 +105,7 @@ class DomainLayerAACSupportRiverPod extends DomainLayerAACSupport {
         formatContent(content: autoInjectTemplate, featureName: className);
     final String patternInject = "#fieldName#: ref.watch(#providerRef#)";
     final propsSplitter = filedProps?.split(";").map((e) => e.trim());
+    output.msg("propsSplitter : ${propsSplitter?.join(",")}");
     final fieldInjected = propsSplitter?.map((element) {
       final splitter = element.split(" ");
       final fieldName = splitter.last.trim();

@@ -24,7 +24,7 @@ abstract class DomainLayerAACSupport extends ClassTemplateBase {
     required String featureName,
   });
 
-  Future<void> autoInjectorDomain({
+  Future<MapEntry<String,String>> autoInjectorDomain({
     required String featureName,
   });
 

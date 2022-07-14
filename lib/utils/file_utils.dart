@@ -2,7 +2,8 @@ import 'dart:io';
 import 'output_utils.dart' as output;
 import 'package:path/path.dart';
 
-Future<void> createFile({required String path, String? content}) async {
+Future<void> createFile(
+    {required String path, String? content, bool override = false, bool withTestFile = true}) async {
   path = path.replaceAll('\\', '/').replaceAll('\"', '');
   if (path.startsWith('/')) path = path.substring(1);
   if (path.endsWith('/')) path = path.substring(0, path.length - 1);
@@ -11,21 +12,30 @@ Future<void> createFile({required String path, String? content}) async {
   Directory dir = Directory(path);
 
   final name = basename(path);
-  final file = File('${dir.path.replaceAll(name, "")}/${name.replaceAll(".dart", "")}.dart');
+  final file = File(
+      '${dir.path.replaceAll(name, "")}/${name.replaceAll(".dart", "")}.dart');
   final fileTest = File(
       '${dir.path.replaceAll(name, "").replaceFirst("lib/", "test/")}/${name.replaceAll(".dart", "")}_test.dart');
-
-  if (file.existsSync()) {
-    output.error('already exists a $path');
-    //exit(1);
-  } else {
-    file.createSync(recursive: true);
+  if (override) {
     if (content != null) {
       file.writeAsStringSync(content);
+      output.msg('File ${file.path} has been override');
     }
-    output.msg('File ${file.path} created');
+  } else {
+    if (file.existsSync()) {
+      output.error('already exists a $path');
+      //exit(1);
+    } else {
+      file.createSync(recursive: true);
+      if (content != null) {
+        file.writeAsStringSync(content);
+      }
+      output.msg('File ${file.path} created');
+    }
   }
-
+  if(!withTestFile){
+    return;
+  }
   if (fileTest.existsSync()) {
     output.error('already exists a $name test file');
     //exit(1);
