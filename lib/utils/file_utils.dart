@@ -1,9 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:aac_command_line_support/utils/string_extension.dart';
-import 'package:recase/recase.dart';
-import 'package:resource_portable/resource.dart';
-
 import 'output_utils.dart' as output;
 import 'package:path/path.dart';
 
@@ -63,28 +58,7 @@ String libPath(String path, {bool reset = false}) {
   }
   return _libPath! + "/$path";
 }
-Future<String> getStringFromPath({required String path}) async {
-  /*final String templateContent = await File(path).readAsStringSync();
-    return templateContent;*/
-  var resource = new Resource(path);
-  var string = await resource.readAsString(encoding: utf8);
-  return string;
-}
-String formatContent({required String content, required String featureName, String? body}) {
-  content = content.replaceAll("/*", "");
-  content = content.replaceAll("*/", "");
-  content = content.replaceAll("#YOURFEATURE#", ReCase(featureName).snakeCase.toLowerCase());
-  content = content.replaceAll(
-    "#YOURFEATURENAME#",
-    featureName.toFeatureName(),
-  );
-  content = content.replaceAll(
-    "#YOURFEATURECAMEL#",
-    featureName.toFeatureCamel(),
-  );
-  content = content.replaceAll("#body#", body??"");
-  return content.trim();
-}
+
 /*
 import 'package:path/path.dart';
 import 'output_utils.dart' as output;

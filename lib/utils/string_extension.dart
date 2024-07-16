@@ -1,11 +1,5 @@
-import 'package:recase/recase.dart';
-
 extension ClassName on String {
-  String toDartFileName(){
-    return ReCase(this).snakeCase;
-  }
   String toFeatureName() {
-
     final splitter = this.split("_");
     var splitterFormatted =
         splitter.map((e) => e.replaceRange(0, 1, e[0].toUpperCase()));

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:aac_command_line_support/utils/string_extension.dart';
-import 'package:recase/recase.dart';
 import 'package:resource_portable/resource.dart';
 
 final String folderData = "data";
@@ -65,10 +64,10 @@ abstract class DataLayerAACSupport {
     return string;
   }
 
-  String formatContent({required String content, required String featureName, String? body}) {
+  String formatContent({required String content, required String featureName}) {
     content = content.replaceAll("/*", "");
     content = content.replaceAll("*/", "");
-    content = content.replaceAll("#YOURFEATURE#", ReCase(featureName).snakeCase.toLowerCase());
+    content = content.replaceAll("#YOURFEATURE#", featureName);
     content = content.replaceAll(
       "#YOURFEATURENAME#",
       featureName.toFeatureName(),
@@ -77,7 +76,6 @@ abstract class DataLayerAACSupport {
       "#YOURFEATURECAMEL#",
       featureName.toFeatureCamel(),
     );
-    content = content.replaceAll("#body#", body??"");
     return content.trim();
   }
 
