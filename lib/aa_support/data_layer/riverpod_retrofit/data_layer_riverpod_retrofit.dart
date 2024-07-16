@@ -58,24 +58,21 @@ class DataLayerAACSupportRiverPodRetrofit extends DataLayerAACSupport {
   }
 
   @override
-  Future<String> getSampleDataClassLocalSource(
-      {required String featureName}) async {
+  Future<String> getSampleDataClassLocalSource({required String featureName}) async {
     final pathEntityTemplate = "$pathTemplate/template_local_data_source.dart";
     var content = await getStringFromPath(path: pathEntityTemplate);
     return formatContent(content: content, featureName: featureName);
   }
 
   @override
-  Future<String> getSampleDataClassRemoteSource(
-      {required String featureName}) async {
+  Future<String> getSampleDataClassRemoteSource({required String featureName}) async {
     final pathEntityTemplate = "$pathTemplate/template_remote_data_source.dart";
     var content = await getStringFromPath(path: pathEntityTemplate);
     return formatContent(content: content, featureName: featureName);
   }
 
   @override
-  Future<String> getSampleDataClassRepository(
-      {required String featureName}) async {
+  Future<String> getSampleDataClassRepository({required String featureName}) async {
     final pathEntityTemplate = "$pathTemplate/template_repository.dart";
     var content = await getStringFromPath(path: pathEntityTemplate);
     return formatContent(content: content, featureName: featureName);
@@ -89,8 +86,9 @@ class DataLayerAACSupportRiverPodRetrofit extends DataLayerAACSupport {
   }
 
   @override
-  Future<String> getSampleDataClassResponse(
-      {required String featureName}) async {
+  Future<String> getSampleDataClassResponse({
+    required String featureName,
+  }) async {
     /*final pathEntityTemplate =
         ".${Platform.pathSeparator}template${Platform.pathSeparator}template_entity.dart";
     var content = await getStringFromPath(path: pathEntityTemplate);
@@ -99,15 +97,12 @@ class DataLayerAACSupportRiverPodRetrofit extends DataLayerAACSupport {
   }
 
   @override
-  Future<String> getSampleDataClassRetrofit(
-      {required String featureName}) async {
+  Future<String> getSampleDataClassRetrofit({required String featureName}) async {
     final pathEntityTemplate = "$pathTemplate/template_retrofit.dart";
     var content = await getStringFromPath(path: pathEntityTemplate);
     return formatContent(content: content, featureName: featureName);
   }
 
   @override
-  // TODO: implement pathTemplate
-  String get pathTemplate =>
-      "package:aac_command_line_support/aa_support/data_layer/riverpod_retrofit/template";
+  String get pathTemplate => "package:aac_command_line_support/aa_support/data_layer/riverpod_retrofit/template";
 }
