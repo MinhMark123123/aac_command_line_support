@@ -47,4 +47,14 @@ from the package authors, and more.
 
 #### Command support
 
+```shell
+flutter pub global deactivate aac_command_line_support
+```
+
+```shell
+flutter pub global activate --source path /Users/minhnguyen/aac_command_line_support
+```
+
+
+
 
