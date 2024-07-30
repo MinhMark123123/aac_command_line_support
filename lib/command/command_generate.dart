@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:aac_command_line_support/utils/communicate.dart';
 import 'package:args/command_runner.dart';
@@ -14,8 +13,8 @@ class CommandGenerate extends Command {
 
   @override
   Future<void> run() async {
-    final userConfirm = echoAndRead(messageOut: "You want to generate model with mac CLI: (y/n)");
-    if (userConfirm == "y" || userConfirm == "yes") {
+    final userConfirmGen = userConfirmSelection(message: "You want to generate model with mac CLI: (y/n)",);
+    if (userConfirmGen) {
       print("\n");
       final listOption = echoListOption(
         message: "Please choice which tool you exported to input generator",
