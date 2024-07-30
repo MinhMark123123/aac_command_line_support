@@ -1,6 +1,5 @@
 import 'dart:io';
 import '../data_layer_support.dart';
-import 'package:resource_portable/resource.dart';
 
 class DataLayerAACSupportRiverPodRetrofit extends DataLayerAACSupport {
   String genDataLayerPathFromFeature({required String featureName}) {

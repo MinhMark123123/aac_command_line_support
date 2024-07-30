@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:recase/recase.dart';
 
 extension ClassName on String {
@@ -20,4 +22,7 @@ extension ClassName on String {
     });
     return splitterFormatted.values.join();
   }
+}
+extension ListStringExtension on List<String>{
+  String get combinePath => this.join(Platform.pathSeparator);
 }

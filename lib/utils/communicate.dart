@@ -3,6 +3,14 @@ import 'dart:io';
 import 'package:aac_command_line_support/utils/output_utils.dart';
 import 'package:dart_console/dart_console.dart';
 
+bool userConfirmSelection({required String message}) {
+  final userConfirm = echoAndRead(messageOut: message);
+  if (userConfirm == "y" || userConfirm == "yes") {
+    return true;
+  }
+  return false;
+}
+
 String? echoAndRead({required String messageOut}) {
   stdout.write("$messageOut: ");
   String? userInput = stdin.readLineSync();
@@ -22,7 +30,11 @@ List<String> echoListOption({
   console.writeLine("$message${options.map((e) => "\n").join()}");
   bool isPressedEnter = false;
   int selectedIndex = 0;
-  _echoOptions(console: console, options: options, selectedIndex: selectedIndex);
+  _echoOptions(
+    console: console,
+    options: options,
+    selectedIndex: selectedIndex,
+  );
   console.rawMode = true;
   while (!isPressedEnter) {
     final key = console.readKey();
@@ -30,24 +42,33 @@ List<String> echoListOption({
       if (key.controlChar == ControlCharacter.enter) {
         isPressedEnter = true;
       } else if (key.controlChar == ControlCharacter.arrowUp) {
-        selectedIndex = selectedIndex > 0 ? selectedIndex - 1 : options.length - 1;
+        selectedIndex =
+            selectedIndex > 0 ? selectedIndex - 1 : options.length - 1;
       } else if (key.controlChar == ControlCharacter.arrowDown) {
-        selectedIndex = selectedIndex < options.length - 1 ? selectedIndex + 1 : 0;
+        selectedIndex =
+            selectedIndex < options.length - 1 ? selectedIndex + 1 : 0;
       }
-      _echoOptions(console: console, options: options, selectedIndex: selectedIndex);
+      _echoOptions(
+          console: console, options: options, selectedIndex: selectedIndex);
     } else if (key.char == " ") {
       if (selectedIndex >= 0 && selectedIndex < options.length) {
         final prefix = options[selectedIndex].startsWith('* ') ? '' : '* ';
         if (!isMultipleChoice) {
-          options = options.map((option) => option.replaceAll('* ', '')).toList();
+          options =
+              options.map((option) => option.replaceAll('* ', '')).toList();
         }
-        options[selectedIndex] = '$prefix${options[selectedIndex].replaceAll('* ', '')}';
+        options[selectedIndex] =
+            '$prefix${options[selectedIndex].replaceAll('* ', '')}';
       }
-      _echoOptions(console: console, options: options, selectedIndex: selectedIndex);
+      _echoOptions(
+          console: console, options: options, selectedIndex: selectedIndex);
     }
   }
   console.rawMode = false;
-  final selectedOptions = options.where((option) => option.startsWith('* ')).map((option) => option.replaceAll('* ', '')).toList();
+  final selectedOptions = options
+      .where((option) => option.startsWith('* '))
+      .map((option) => option.replaceAll('* ', ''))
+      .toList();
   console.writeLine('Selected options: ${selectedOptions.join(', ')}');
   return selectedOptions;
 }
@@ -74,7 +95,8 @@ void _echoOptions({
   }
 }
 
-void _clearOptionsListEcho(Console console, List<String> options, int selectedIndex) {
+void _clearOptionsListEcho(
+    Console console, List<String> options, int selectedIndex) {
   for (int i = 0; i < options.length; i++) {
     console.cursorUp();
     console.eraseLine();
